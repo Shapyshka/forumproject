@@ -28,6 +28,8 @@ public class newscontroller {
     public String homenews(Model model){
         Iterable<news> listnews = newsrepository.findAll();
         model.addAttribute("news",listnews);
+//        model.addAttribute("userid",username);
+
         return "newsList";
     }
     @GetMapping("/crt_nws")

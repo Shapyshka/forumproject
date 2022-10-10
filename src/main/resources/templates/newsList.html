@@ -15,7 +15,10 @@
 <br>
 <div align="center" th:each="el:${news}" style="background-color:#ffbe8f">
 
-    <h3 th:text="${el.getAuthorName()}"/>
+    <a style="color:#222222"  th:href="'/usr/'+${el.getAuthorName()}" >
+        <h3 th:text="${el.getAuthorName()}"/>
+    </a>
+
     <h2 th:text="${el.getText()}"/>
     <a type="button" class="btn btn-info" style="color:#ffffff" th:href="@{/nws/{id}(id=${el.getId})}">Подробнее...</a>
 
