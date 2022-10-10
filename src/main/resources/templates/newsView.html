@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <title>Подробнее</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body >
+<header th:insert="Blocks/Header :: Header" ></header>
+
+<br>
+<h1 align="center">Подробно</h1>
+<div th:each="el:${news}" class="alert alert-into at-2" align="center" >
+
+    <h3 th:text="${el.getAuthorName()}"/>
+    <h2 th:text="${el.getText()}"/>
+
+    <a th:href="'/nws/'+${id}+'/edt_nws'" style="color:#ffffff" class="btn btn-info">Изменить</a>
+    <form th:action="'/nws/'+${id}+'/del'" method="post">
+        <button type="submit" class="btn btn-danger">Удалить</button>
+    </form>
+</div>
+
+<footer th:insert="Blocks/Footer :: Footer"></footer>
+</body>
+</html>
