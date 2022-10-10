@@ -7,12 +7,19 @@
 </head>
 <body style="background-color:">
 <header th:insert="Blocks/Header :: Header" ></header>
-
+<br>
+<h1 align="center">Регистрация</h1>
 
 <form align="center" th:action="@{/registration}" method="post" >
-  <div><label> Логин: <input type="text" name="username" class="form-control"/> </label></div>
+  <div><label> Имя пользователя: <input type="text" name="username" class="form-control"/> </label></div>
+<!--  <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>-->
+
   <div><label> Пароль: <input type="password" name="password" class="form-control"/> </label></div>
+<!--  <div style="color:red" th:if = "${#fields.hasErrors('password')}" th:errors="*{text}"></div>-->
+
   <div><input class="btn btn-success" type="submit" value="Зарегистрироваться" /></div>
+  <a href="/login">Войти в аккаунт</a>
+
   <div style="color:#ff0000" th:if="${message}">
     <p th:text="${message}"></p>
   </div>

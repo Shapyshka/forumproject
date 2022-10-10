@@ -3,6 +3,7 @@ package com.example.restik.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,8 @@ public class news {
     private String text;
 
     private byte[] mediabytes;
+
+    private Date date;
 
 //    @ManyToMany
 //    @JoinColumn(name = "likes_user_id")
@@ -70,5 +73,13 @@ public class news {
 
     public void setAuthor(user author) {
         this.author = author;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

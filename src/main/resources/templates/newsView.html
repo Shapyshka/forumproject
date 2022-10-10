@@ -12,12 +12,15 @@
 <div th:each="el:${news}" class="alert alert-into at-2" align="center" >
 
     <h3 th:text="${el.getAuthorName()}"/>
+    <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
     <h2 th:text="${el.getText()}"/>
 
-    <a th:href="'/nws/'+${id}+'/edt_nws'" style="color:#ffffff" class="btn btn-info">Изменить</a>
-    <form th:action="'/nws/'+${id}+'/del'" method="post">
-        <button type="submit" class="btn btn-danger">Удалить</button>
-    </form>
+    <div th:if="${el.getAuthorName()==curusname}">
+        <a th:href="'/nws/'+${id}+'/edt_nws'" style="color:#ffffff" class="btn btn-info">Изменить</a>
+        <form  th:action="'/nws/'+${id}+'/del'" method="post">
+            <button type="submit" class="btn btn-danger">Удалить</button>
+        </form>
+    </div>
 </div>
 
 <footer th:insert="Blocks/Footer :: Footer"></footer>

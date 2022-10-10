@@ -1,5 +1,6 @@
 package com.example.restik.controllers;
 
+import com.example.restik.models.news;
 import com.example.restik.repository.newsrepository;
 import com.example.restik.repository.userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 @Controller
 public class maincontroller {
@@ -31,17 +36,43 @@ public class maincontroller {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         model.addAttribute("username",currentPrincipalName);
+
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm",new Locale("ru", "RU"));
+        df1.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Greenwich")));
+        model.addAttribute("df1",df1);
+
+        SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
+        df2.setTimeZone(TimeZone.getDefault());
+        model.addAttribute("df2",df2);
+
+        Long userid = userrepository.findByUsername(currentPrincipalName).getId();
+        Iterable<news> listnews = newsrepository.findByAuthor_id(userid);
+        model.addAttribute("news",listnews);
         return "myprofile";
     }
     @GetMapping("/usr/{id}")
-    public String user(@PathVariable("id") String userid, Model model) {
+    public String user(@PathVariable("id") String usern, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
-        String username = userrepository.findByUsername(userid).getUsername();
+        String username = userrepository.findByUsername(usern).getUsername();
         if(Objects.equals(username, currentPrincipalName))
             return "redirect:/prf";
         model.addAttribute("username",username);
+
+
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm",new Locale("ru", "RU"));
+        df1.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Greenwich")));
+        model.addAttribute("df1",df1);
+
+        SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
+        df2.setTimeZone(TimeZone.getDefault());
+        model.addAttribute("df2",df2);
+
+        Long userid = userrepository.findByUsername(usern).getId();
+        Iterable<news> listnews = newsrepository.findByAuthor_id(userid);
+        model.addAttribute("news",listnews);
+
         return "userprofile";
     }
 

@@ -1,7 +1,12 @@
 package com.example.restik.models;
 
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -11,8 +16,13 @@ public class user {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     public Long id;
-
+//
+//    @UniqueElements(message = "Данное имя уже занято")
+//    @NotEmpty(message = "Заполните имя пользователя")
     private String username;
+//
+//    @NotEmpty(message = "Придумайте пароль")
+//    @Size(min=8,message = "В пароле должно быть минимум 8 символов")
     private String password;
     private boolean active;
 

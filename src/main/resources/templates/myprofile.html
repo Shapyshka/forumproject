@@ -25,7 +25,6 @@
 
 <!--                <img class="rounded-circle" th:src="${pfp}" height="96px" width="96px" >-->
             <br>
-            <br>
             Имя:
                 <h2 th:text="${username}" ></h2>
 <!--            Адрес электронной почты:-->
@@ -36,7 +35,6 @@
 <!--            <h2 th:text="${phone}" ></h2>-->
 <!--            </div>-->
 
-            <br>
             <br>
 
             <form class="form-inline" th:action="@{/logout}" method="post">
@@ -49,6 +47,20 @@
 
             </form>
             <br>
+            <h2 align="center">Записи</h2>
+            <div align="center" th:each="el:${news}" style="background-color:#ffbe8f">
+
+                <a style="color:#222222"  th:href="'/usr/'+${el.getAuthorName()}" >
+                    <h4 th:text="${el.getAuthorName()}"/>
+                </a>
+                <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
+
+                <!--    <h5 th:text="${el.getDate()}"/>-->
+                <h2 th:text="${el.getText()}"/>
+                <a type="button" class="btn btn-info" style="color:#ffffff" th:href="@{/nws/{id}(id=${el.getId})}">...</a>
+
+                <h2> </h2>
+            </div>
         </td>
         <td align="center" width="15%">
 
