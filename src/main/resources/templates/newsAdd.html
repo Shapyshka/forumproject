@@ -8,22 +8,24 @@
 <header th:insert="Blocks/Header :: Header" ></header>
 <br>
 <h1 align="center">Создать запись</h1>
+<div align="center">
+    <form method="post" action="/nws/crt_nws" th:object="${news}">
+    <!--    <input type="text" id="text" placeholder="Текст записи" class="form-control">-->
+        <textarea  style="width:40%; align:center" th:field="*{text}" name="text" id ="text"  placeholder="Текст записи" class="form-control"></textarea>
+        <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>
 
-<form method="post" action="/nws/crt_nws" th:object="${news}" align="center">
-    <input type="text" th:field="*{text}" id="text" placeholder="Текст записи" class="form-control">
-    <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>
+    <!--    <input type="number" th:field="*{price}" id ="price" placeholder="Цена" class="form-control">-->
+    <!--    <div style="color:red" th:if = "${#fields.hasErrors('price')}" th:errors="*{price}"></div>-->
 
-<!--    <input type="number" th:field="*{price}" id ="price" placeholder="Цена" class="form-control">-->
-<!--    <div style="color:red" th:if = "${#fields.hasErrors('price')}" th:errors="*{price}"></div>-->
+    <!--    <input type="number" th:field="*{mass}" id ="mass" placeholder="Масса (г.)" class="form-control">-->
+    <!--    <div style="color:red" th:if = "${#fields.hasErrors('mass')}" th:errors="*{mass}"></div>-->
 
-<!--    <input type="number" th:field="*{mass}" id ="mass" placeholder="Масса (г.)" class="form-control">-->
-<!--    <div style="color:red" th:if = "${#fields.hasErrors('mass')}" th:errors="*{mass}"></div>-->
+    <!--    <input type="text" th:field="*{desc}" id ="desc" placeholder="Описание" class="form-control">-->
+    <!--    <div style="color:red" th:if = "${#fields.hasErrors('desc')}" th:errors="*{desc}"></div>-->
 
-<!--    <input type="text" th:field="*{desc}" id ="desc" placeholder="Описание" class="form-control">-->
-<!--    <div style="color:red" th:if = "${#fields.hasErrors('desc')}" th:errors="*{desc}"></div>-->
-
-    <button style="color:#ffffff" class="btn btn-success" type="submit">Создать запись</button>
-</form>
+        <button style="color:#ffffff" class="btn btn-success" type="submit">Создать запись</button>
+    </form>
+</div>
 <footer th:insert="Blocks/Footer :: Footer" ></footer>
 </body>
 </html>

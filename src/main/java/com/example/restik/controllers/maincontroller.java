@@ -46,7 +46,7 @@ public class maincontroller {
         model.addAttribute("df2",df2);
 
         Long userid = userrepository.findByUsername(currentPrincipalName).getId();
-        Iterable<news> listnews = newsrepository.findByAuthor_id(userid);
+        Iterable<news> listnews = newsrepository.findByAuthor_idOrderByDateDesc(userid);
         model.addAttribute("news",listnews);
         return "myprofile";
     }
@@ -70,7 +70,7 @@ public class maincontroller {
         model.addAttribute("df2",df2);
 
         Long userid = userrepository.findByUsername(usern).getId();
-        Iterable<news> listnews = newsrepository.findByAuthor_id(userid);
+        Iterable<news> listnews = newsrepository.findByAuthor_idOrderByDateDesc(userid);
         model.addAttribute("news",listnews);
 
         return "userprofile";

@@ -1,6 +1,8 @@
 package com.example.restik.controllers;
 
+import com.example.restik.models.comment;
 import com.example.restik.models.news;
+import com.example.restik.repository.commentrepository;
 import com.example.restik.repository.newsrepository;
 import com.example.restik.repository.userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class newscontroller {
     private newsrepository newsrepository;
     @Autowired
     private userrepository userrepository;
+    @Autowired
+    private commentrepository commentrepository;
 
     @GetMapping(path="/")
     public String homenews(Model model) throws ParseException {
@@ -39,8 +43,7 @@ public class newscontroller {
         SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
         df2.setTimeZone(TimeZone.getDefault());
         model.addAttribute("df2",df2);
-
-        Iterable<news> listnews = newsrepository.findAll();
+        Iterable<news> listnews = newsrepository.findAllByOrderByDateDesc();
         model.addAttribute("news",listnews);
 //        model.addAttribute("userid",username);
 
@@ -86,6 +89,9 @@ public class newscontroller {
         onenews.ifPresent(res::add);
         model.addAttribute("news",res);
 
+        Iterable<comment> listcomments = commentrepository.findByZapis_idOrderByDateDesc(id);
+        model.addAttribute("comments",listcomments);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         model.addAttribute("curusname",currentPrincipalName);
@@ -95,8 +101,14 @@ public class newscontroller {
 
     @GetMapping("/{id}/edt_nws")
     public String editview(@PathVariable("id")Long id, news news, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
         Optional<news> onenews= newsrepository.findById(id);
         ArrayList<news> res = new ArrayList<>();
+
+        if(!Objects.equals(onenews.get().getAuthorName(), currentPrincipalName))
+            return "redirect:/nws/"+id.toString();
+
         onenews.ifPresent(res::add);
         model.addAttribute("onenew",res);
         return "newsEdit";
@@ -117,6 +129,20 @@ public class newscontroller {
 
         newsrepository.save(news);
         return ("redirect:/nws/{id}");
+    }
+    @PostMapping("/{id}/cmnt")
+    public String comment(@Valid comment comment, BindingResult bindingResult, @PathVariable("id") Long id) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        if(bindingResult.hasErrors())
+            return "newsView";
+        comment.setAuthor(userrepository.findByUsername(currentPrincipalName));
+        comment.setZapis(newsrepository.findById(id).orElseThrow());
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",new Locale("ru", "RU"));
+        Date now = df1.parse(ZonedDateTime.now(ZoneId.of("Greenwich")).toString().replace("T"," "));
+        comment.setDate(now);
+        commentrepository.save(comment);
+        return "redirect:/nws/"+id;
     }
 
     @PostMapping("/{id}/del")

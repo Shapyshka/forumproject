@@ -12,10 +12,9 @@
 <h1 align="center">Изменить запись</h1>
 <div th:each="el:${onenew}" align="center">
     <form method="post" th:object="${news}">
-        <input type="text" th:field="*{text}" id="text" placeholder="Текст записи" class="form-control">
-        <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>
-
-
+<!--        <input type="text" th:field="*{text}" id="text" placeholder="Текст записи" class="form-control">-->
+        <textarea  name="text" id ="text" th:text="${el.getText()}" placeholder="Текст записи" class="form-control" style="width:40%; align:center"></textarea>
+<!--        <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>-->
         <button style="color:#ffffff" class="btn btn-success" type="submit">Изменить запись</button>
     </form>
 </div>

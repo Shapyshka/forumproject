@@ -8,21 +8,42 @@
 <header th:insert="Blocks/Header :: Header" ></header>
 
 <br>
-<h1 align="center">Подробно</h1>
-<div th:each="el:${news}" class="alert alert-into at-2" align="center" >
+<!--<h1 align="center">Подробно</h1>-->
+<div align="center">
+    <div th:each="el:${news}" class="rounded" style="width:60%; background-color:#aaaaaa" >
+        <a style="color:#222222"  th:href="'/usr/'+${el.getAuthorName()}" >
+            <h4 th:text="${el.getAuthorName()}"/>
+        </a>
+        <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
+        <h2 th:text="${el.getText()}"/>
 
-    <h3 th:text="${el.getAuthorName()}"/>
-    <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
-    <h2 th:text="${el.getText()}"/>
-
-    <div th:if="${el.getAuthorName()==curusname}">
-        <a th:href="'/nws/'+${id}+'/edt_nws'" style="color:#ffffff" class="btn btn-info">Изменить</a>
-        <form  th:action="'/nws/'+${id}+'/del'" method="post">
-            <button type="submit" class="btn btn-danger">Удалить</button>
-        </form>
+        <div th:if="${el.getAuthorName()==curusname}">
+            <a th:href="'/nws/'+${id}+'/edt_nws'" style="color:#ffffff" class="btn btn-info">Изменить</a>
+            <form  th:action="'/nws/'+${id}+'/del'" method="post">
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <h2 align="center">Комментарии</h2>
+    Написать комментарий:
+    <form method="post" th:action="'/nws/'+${id}+'/cmnt'" th:object="${comment}">
+        <textarea  style="width:40%; align:center" name="text" id ="text" placeholder="Комментарий" class="form-control"></textarea>
+<!--        <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>-->
+        <button style="color:#ffffff" class="btn btn-success" type="submit">Написать комментарий</button>
+    </form>
+<br>
+    <div align="center" th:each="el:${comments}">
+        <div class="rounded" align="center" style="background-color:#aaaaaa; width:60%">
+            <a style="color:#222222"  th:href="'/usr/'+${el.getAuthorName()}" >
+                <h4 th:text="${el.getAuthorName()}"/>
+            </a>
+            <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
+            <h2 th:text="${el.getText()}"/>
+            <h2> </h2>
+        </div>
     </div>
 </div>
-
 <footer th:insert="Blocks/Footer :: Footer"></footer>
 </body>
 </html>
