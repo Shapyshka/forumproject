@@ -10,6 +10,20 @@
 <header th:insert="blocks/header :: header" ></header>
 
 <body>
-В разработке!
+<div align="center">
+    <h1 align="center">Переписки</h1>
+    <br>
+    <div align="center" th:each="el:${talkto}" style="width:60%">
+        <div class="rounded" align="center" style="background-color:#aaaaaa">
+            <br>
+            <a style="color:#222222"  th:href="'/msg/'+${el.getValue()}" >
+                <h3 th:text="${el.getValue()}"/>
+            </a>
+            <br>
+        </div>
+        <br>
+    </div>
+</div>
+<footer th:insert="Blocks/Footer :: Footer"></footer>
 </body>
 </html>

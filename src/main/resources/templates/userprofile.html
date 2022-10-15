@@ -20,19 +20,13 @@
 
         </td>
         <td align="center" width="60%">
-
-            <!--                <img class="rounded-circle" th:src="${pfp}" height="96px" width="96px" >-->
             <br>
             Имя:
             <h2 th:text="${username}" ></h2>
-            <!--            Адрес электронной почты:-->
-            <!--                <h2 th:text="${email}" ></h2>-->
-
-            <!--            <div th:if="${phone!=null}">-->
-            <!--            Номер телефона:-->
-            <!--            <h2 th:text="${phone}" ></h2>-->
-            <!--            </div>-->
-
+            <br>
+            <a type="button" class="btn btn-info" style="color:#ffffff" th:href="@{/msg/{id}(id=${username})}">Написать сообщение</a>
+            <br>
+            <br>
             <br>
             <h2 align="center">Записи</h2>
                 <div align="center" th:each="el:${news}">
@@ -45,7 +39,7 @@
                         <a type="button" class="btn btn-info" style="color:#ffffff" th:href="@{/nws/{id}(id=${el.getId})}">...</a>
                         <h2> </h2>
                     </div>
-            </div>
+                 </div>
         </td>
         <td align="center" width="15%">
 
