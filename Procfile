@@ -1,1 +1,1 @@
-web: java -jar target/Forum.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/Forum.jar
