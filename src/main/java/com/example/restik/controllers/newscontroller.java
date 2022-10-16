@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.example.restik.models.user;
+import org.springframework.web.servlet.support.RequestContextUtils;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -35,14 +38,16 @@ public class newscontroller {
     private commentrepository commentrepository;
 
     @GetMapping(path="/")
-    public String homenews(Model model) throws ParseException {
+//    @RequestMapping
+    public String homenews(TimeZone timezone, Model model) throws ParseException {
+
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm",new Locale("ru", "RU"));
         df1.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Greenwich")));
         model.addAttribute("df1",df1);
-
         SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
-        df2.setTimeZone(TimeZone.getDefault());
+        df2.setTimeZone(timezone);
         model.addAttribute("df2",df2);
+
         Iterable<news> listnews = newsrepository.findAllByOrderByDateDesc();
         model.addAttribute("news",listnews);
 //        model.addAttribute("userid",username);
@@ -74,14 +79,15 @@ public class newscontroller {
     }
 
     @GetMapping("/{id}")
-    public String viewnews(@PathVariable("id") Long id, Model model){
+//    @RequestMapping
+    public String viewnews(@PathVariable("id") Long id, TimeZone timezone, Model model){
 
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm",new Locale("ru", "RU"));
         df1.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Greenwich")));
         model.addAttribute("df1",df1);
 
         SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
-        df2.setTimeZone(TimeZone.getDefault());
+        df2.setTimeZone(timezone);
         model.addAttribute("df2",df2);
 
         Optional<news> onenews= newsrepository.findById(id);

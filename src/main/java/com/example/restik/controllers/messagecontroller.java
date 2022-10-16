@@ -40,7 +40,8 @@ public class messagecontroller {
 
 
     @GetMapping(path = "/")
-    public String msg(Model model) {
+    //@RequestMapping
+    public String msg(TimeZone timezone, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Long curuserid = userrepository.findByUsername(currentPrincipalName).getId();
@@ -48,7 +49,7 @@ public class messagecontroller {
         df1.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Greenwich")));
         model.addAttribute("df1",df1);
         SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
-        df2.setTimeZone(TimeZone.getDefault());
+        df2.setTimeZone(timezone);
         model.addAttribute("df2",df2);
 
         Iterable<message> listmsg = messagerepository.findByFrom_idOrTo_idOrderByDateDesc(curuserid,curuserid);
@@ -71,7 +72,8 @@ public class messagecontroller {
         return "messages";
     }
     @GetMapping(path = "/{id}")
-    public String msgwithuser(@PathVariable("id") String msgwith, Model model) {
+    //@RequestMapping
+    public String msgwithuser(@PathVariable("id") String msgwith, TimeZone timezone, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
@@ -85,7 +87,7 @@ public class messagecontroller {
         model.addAttribute("df1",df1);
 
         SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
-        df2.setTimeZone(TimeZone.getDefault());
+        df2.setTimeZone(timezone);
         model.addAttribute("df2",df2);
 
         List<message> listmsg1 = messagerepository.findFromMeToDude(userrepository.findById(curuserid), userrepository.findById(hisid), Sort.by(Sort.Direction.DESC, "date"));

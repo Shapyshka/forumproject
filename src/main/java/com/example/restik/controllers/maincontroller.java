@@ -8,10 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -32,7 +29,8 @@ public class maincontroller {
         return "redirect:/nws/";
     }
     @GetMapping("/prf")
-    public String profile(  Model model) {
+    //@RequestMapping
+    public String profile(TimeZone timezone,  Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         model.addAttribute("username",currentPrincipalName);
@@ -42,7 +40,7 @@ public class maincontroller {
         model.addAttribute("df1",df1);
 
         SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
-        df2.setTimeZone(TimeZone.getDefault());
+        df2.setTimeZone(timezone);
         model.addAttribute("df2",df2);
 
         Long userid = userrepository.findByUsername(currentPrincipalName).getId();
@@ -51,7 +49,8 @@ public class maincontroller {
         return "myprofile";
     }
     @GetMapping("/usr/{id}")
-    public String user(@PathVariable("id") String usern, Model model) {
+    //@RequestMapping
+    public String user(@PathVariable("id") String usern, TimeZone timezone, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
@@ -66,7 +65,7 @@ public class maincontroller {
         model.addAttribute("df1",df1);
 
         SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
-        df2.setTimeZone(TimeZone.getDefault());
+        df2.setTimeZone(timezone);
         model.addAttribute("df2",df2);
 
         Long userid = userrepository.findByUsername(usern).getId();
