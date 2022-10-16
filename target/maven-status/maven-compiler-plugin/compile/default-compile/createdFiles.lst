@@ -1,0 +1,16 @@
+com\example\restik\models\news.class
+com\example\restik\RestikApplication.class
+com\example\restik\controllers\registrationcontroller.class
+com\example\restik\models\user.class
+com\example\restik\repository\userrepository.class
+com\example\restik\controllers\maincontroller.class
+com\example\restik\repository\newsrepository.class
+com\example\restik\models\role.class
+com\example\restik\controllers\newscontroller.class
+com\example\restik\repository\commentrepository.class
+com\example\restik\models\comment.class
+com\example\restik\config\mvcconfig.class
+com\example\restik\models\message.class
+com\example\restik\repository\messagerepository.class
+com\example\restik\config\websecurityconfig.class
+com\example\restik\controllers\messagecontroller.class

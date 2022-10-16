@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Material+Icons+Outlined&v=1648034229241">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <title>Профиль</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<header th:insert="blocks/header :: header" ></header>
+
+<body>
+
+
+<br>
+<h1 align="center">Профиль</h1>
+<table width="100%">
+    <tr>
+        <td align="center" width="15%">
+
+        </td>
+        <td align="center" width="60%">
+
+<!--                <img class="rounded-circle" th:src="${pfp}" height="96px" width="96px" >-->
+            <br>
+            Имя:
+                <h2 th:text="${username}" ></h2>
+<!--            Адрес электронной почты:-->
+<!--                <h2 th:text="${email}" ></h2>-->
+
+<!--            <div th:if="${phone!=null}">-->
+<!--            Номер телефона:-->
+<!--            <h2 th:text="${phone}" ></h2>-->
+<!--            </div>-->
+
+            <br>
+
+            <form class="form-inline" th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-danger">
+                    <span class="material-icons-outlined" style="font-size:15px">
+                        logout
+                    </span>
+                    Выйти из уч. записи
+                </button>
+
+            </form>
+            <br>
+            <h2 align="center">Записи</h2>
+
+            <div align="center" th:each="el:${news}">
+                <div class="rounded" align="center" style="background-color:#aaaaaa">
+                    <a style="color:#222222"  th:href="'/usr/'+${el.getAuthorName()}" >
+                        <h4 th:text="${el.getAuthorName()}"/>
+                    </a>
+                    <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
+                    <h2 th:text="${el.getText()}"/>
+                    <a type="button" class="btn btn-info" style="color:#ffffff" th:href="@{/nws/{id}(id=${el.getId})}">...</a>
+                    <h2> </h2>
+                </div>
+            </div>
+        </td>
+        <td align="center" width="15%">
+
+        </td>
+    </tr>
+</table>
+
+
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>

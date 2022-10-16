@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:text-color="http://www.w3.org/1999/xhtml">
+<head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+  <title>Регистрация</title>
+</head>
+<body style="background-color:">
+<header th:insert="blocks/header :: Header" ></header>
+<br>
+<h1 align="center">Регистрация</h1>
+
+<form align="center" th:action="@{/registration}" method="post" >
+  <div><label> Имя пользователя: <input type="text" name="username" class="form-control"/> </label></div>
+<!--  <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>-->
+
+  <div><label> Пароль: <input type="password" name="password" class="form-control"/> </label></div>
+<!--  <div style="color:red" th:if = "${#fields.hasErrors('password')}" th:errors="*{text}"></div>-->
+
+  <div><input class="btn btn-success" type="submit" value="Зарегистрироваться" /></div>
+  <a href="/login">Войти в аккаунт</a>
+
+  <div style="color:#ff0000" th:if="${message}">
+    <p th:text="${message}"></p>
+  </div>
+</form>
+<footer th:insert="blocks/footer :: Footer"></footer>
+
+</body>
+</html>
