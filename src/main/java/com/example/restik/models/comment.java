@@ -1,6 +1,9 @@
 package com.example.restik.models;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
@@ -18,11 +21,15 @@ public class comment {
 
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @ManyToOne
     @JoinColumn(name = "author_id")
     private user author;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @ManyToOne
     @JoinColumn(name = "zapis_id")
     private news zapis;
 
