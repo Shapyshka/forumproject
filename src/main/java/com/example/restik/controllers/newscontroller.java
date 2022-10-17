@@ -153,6 +153,10 @@ public class newscontroller {
 
     @PostMapping("/{id}/del")
     public String delnews(@PathVariable("id") Long id, Model model){
+        Iterable<comment> comments= commentrepository.findByZapis_idOrderByDateDesc(id);
+        for(comment com:comments)
+            commentrepository.delete(com);
+
         news news= newsrepository.findById(id).orElseThrow();
         newsrepository.delete(news);
         return ("redirect:/nws/");

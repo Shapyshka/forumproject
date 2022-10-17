@@ -28,9 +28,9 @@ public class news {
 //    @JoinColumn(name = "likes_user_id")
 //    private List<user> likes;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @ManyToOne
+//    @ManyToOne(cascade = CascadeType.REMOVE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private user author;
 

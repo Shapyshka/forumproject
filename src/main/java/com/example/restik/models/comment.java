@@ -21,15 +21,15 @@ public class comment {
 
     private Date date;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @ManyToOne
+//    @ManyToOne(cascade = CascadeType.REMOVE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private user author;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @ManyToOne
+//    @ManyToOne(cascade = CascadeType.REMOVE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne
     @JoinColumn(name = "zapis_id")
     private news zapis;
 
