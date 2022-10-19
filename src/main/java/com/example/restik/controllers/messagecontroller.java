@@ -94,10 +94,10 @@ public class messagecontroller {
 
         List<message> listmsg1 = messagerepository.findFromMeToDude(userrepository.findById(curuserid), userrepository.findById(hisid), Sort.by(Sort.Direction.DESC, "date"));
         List<message> listmsg2 = messagerepository.findToMeFromDude(userrepository.findById(curuserid), userrepository.findById(hisid), Sort.by(Sort.Direction.DESC, "date"));
-        //TODO sort this shit by the date
         List<message> allmsgs = new ArrayList<>(Stream.concat(listmsg1.stream(), listmsg2.stream()).toList());
 
-        allmsgs.sort(Collections.reverseOrder());
+        //allmsgs.sort(Collections.reverseOrder());
+        Collections.sort(allmsgs);
         model.addAttribute("msgs",allmsgs);
         model.addAttribute("userrep",userrepository);
 

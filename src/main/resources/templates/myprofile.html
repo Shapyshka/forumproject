@@ -16,9 +16,9 @@
     <title>Профиль</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<header th:insert="blocks/header :: header" ></header>
+<header th:insert="blocks/header :: Header" ></header>
 
-<body>
+<body style="margin-top:70px">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -110,8 +110,9 @@
 
             <div align="center" th:each="el:${news}">
                 <div class="rounded" align="center" style="background-color:#aaaaaa">
-                    <a style="color:#222222"  th:href="'/usr/'+${el.getAuthorName()}" >
-                        <h4 th:text="${el.getAuthorName()}"/>
+                    <a style="color:#222222; text-decoration: none;"  th:href="'/usr/'+${el.getAuthorName()}" >
+                        <img class="rounded-circle" th:src="${userrep.findByUsername(el.getAuthorName()).getAvatarlink()}" style="display:inline-block;" height="25px" width="25px" >
+                        <h4 th:text="${el.getAuthorName()}" style="display:inline-block;"/>
                     </a>
                     <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
                     <h2 th:text="${el.getText()}"/>

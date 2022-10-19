@@ -7,31 +7,49 @@
   <title>Личные сообщения</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<header th:insert="blocks/header :: header" ></header>
-
-<body>
-<div align="center">
-    <a style="color:#222222"  th:href="'/usr/'+${usrnm}" >
-      <h1 th:text="${usrnm}"/>
+<header th:insert="blocks/header :: Header" ></header>
+<div style="align:center" align="center">
+  <div style="background-color:#bbbbbb; width:100%; position: fixed; top: 56px; align:center" align="center" class="rounded">
+    <a style="color:#222222; text-decoration: none;"  th:href="'/usr/'+${usrnm}" >
+      <img class="rounded-circle" th:src="${userrep.findByUsername(usrnm).getAvatarlink()}" style="display:inline-block;" height="40px" width="40px" >
+      <h2 th:text="${usrnm}" style="display:inline-block;"/>
     </a>
-  <br>
-  Написать сообщение:
-  <form method="post" th:action="'/msg/'+${id}+'/sndmsg'" th:object="${message}">
-    <textarea style="width:40%; align:center" name="text" id ="text" placeholder="Сообщение" class="form-control"></textarea>
-    <!--        <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>-->
-    <button style="color:#ffffff" class="btn btn-success" type="submit">Написать сообщение</button>
-  </form>
-  <br>
-  <div align="center" th:each="el:${msgs}" style="width:60%">
-    <div class="rounded" align="center" style="background-color:#aaaaaa">
-      <a style="color:#222222"  th:href="'/usr/'+${el.getFromName()}" >
-        <h4 th:text="${el.getFromName()}"/>
-      </a>
-      <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
-      <h2 th:text="${el.getText()}"/>
-    </div>
   </div>
 </div>
-<footer th:insert="blocks/footer :: Footer"></footer>
+
+<body id="scrolldiv" style="margin-top:126px">
+<div align="center">
+  <div align="center" class="rounded" style="background-color:#cccccc; width:90%; margin-bottom: 105px;">
+    <br>
+    <div align="center" th:each="el:${msgs}" style="width:60%">
+      <div class="rounded" align="center" style="background-color:#aaaaaa">
+        <a style="color:#222222; text-decoration: none;"  th:href="'/usr/'+${el.getFromName()}" >
+          <img class="rounded-circle" th:src="${userrep.findByUsername(el.getFromName()).getAvatarlink()}" style="display:inline-block;" height="25px" width="25px" >
+          <h4 th:text="${el.getFromName()}" style="display:inline-block;"/>
+        </a>
+
+        <h6 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
+        <h5 th:text="${el.getText()}"/>
+      </div>
+    </div>
+  <br>
+  </div>
+  <script>
+    var objDiv = document.getElementById("scrolldiv");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  </script>
+  <div style="position: fixed; bottom: 0; width: 100%; background-color:#bbbbbb;">
+    Написать сообщение:
+    <form method="post" th:action="'/msg/'+${id}+'/sndmsg'" th:object="${message}" style="margin-bottom: 10px;">
+      <textarea style="width:40%; align:center" name="text" id ="text" placeholder="Сообщение" class="form-control"></textarea>
+      <!--        <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>-->
+      <button style="color:#ffffff" class="btn btn-success" type="submit">Написать сообщение</button>
+    </form>
+  </div>
+  <br>
+</div>
 </body>
+<script>
+    window.scrollTo(0, document.body.scrollHeight);
+</script>
 </html>

@@ -4,7 +4,7 @@
     <title>Меню</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body >
+<body style="margin-top:70px">
 <header th:insert="blocks/header :: Header" ></header>
 <br>
 <h1 align="center">Лента новостей</h1>
@@ -21,8 +21,9 @@
         <td align="center" width="60%">
             <div align="center" th:each="el:${news}">
                 <div class="rounded" align="center" style="background-color:#aaaaaa">
-                    <a style="color:#222222"  th:href="'/usr/'+${el.getAuthorName()}" >
-                        <h4 th:text="${el.getAuthorName()}"/>
+                    <a style="color:#222222; text-decoration: none;"  th:href="'/usr/'+${el.getAuthorName()}" >
+                        <img class="rounded-circle" th:src="${userrep.findByUsername(el.getAuthorName()).getAvatarlink()}" style="display:inline-block;" height="25px" width="25px" >
+                        <h4 th:text="${el.getAuthorName()}" style="display:inline-block;"/>
                     </a>
                     <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
                     <h2 th:text="${el.getText()}"/>

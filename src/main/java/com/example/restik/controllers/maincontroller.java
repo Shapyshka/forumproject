@@ -54,6 +54,8 @@ public class maincontroller {
         Long userid = userrepository.findByUsername(currentPrincipalName).getId();
         Iterable<news> listnews = newsrepository.findByAuthor_idOrderByDateDesc(userid);
         model.addAttribute("news",listnews);
+        model.addAttribute("userrep",userrepository);
+
         return "myprofile";
     }
 
@@ -91,6 +93,7 @@ public class maincontroller {
         Long userid = userrepository.findByUsername(usern).getId();
         Iterable<news> listnews = newsrepository.findByAuthor_idOrderByDateDesc(userid);
         model.addAttribute("news",listnews);
+        model.addAttribute("userrep",userrepository);
 
         return "userprofile";
     }
