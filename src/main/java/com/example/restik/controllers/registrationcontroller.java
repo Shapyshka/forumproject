@@ -48,6 +48,7 @@ public class registrationcontroller {
             return "registration";
         }
         user.setActive(true);
+        user.setAvatarlink("http://my-engine.ru/modules/users/avatar.png");
         user.setRoles(Collections.singleton(role.USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);

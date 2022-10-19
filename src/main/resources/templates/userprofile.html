@@ -10,8 +10,6 @@
 <header th:insert="blocks/header :: header" ></header>
 
 <body>
-
-
 <br>
 <h1 align="center">Профиль</h1>
 <table width="100%">
@@ -20,6 +18,8 @@
 
         </td>
         <td align="center" width="60%">
+            <br>
+            <img class="rounded-circle" th:src="${avatar}" height="96px" width="96px" >
             <br>
             Имя:
             <h2 th:text="${username}" ></h2>

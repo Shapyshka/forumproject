@@ -26,6 +26,10 @@ public class user {
     private String password;
     private boolean active;
 
+    private String avatarlink;
+
+    private byte[] avatarbytes;
+
 
     @ElementCollection(targetClass = role.class, fetch = FetchType.EAGER)
     @CollectionTable(name="user_role", joinColumns = @JoinColumn(name="user_id"))
@@ -70,5 +74,21 @@ public class user {
 
     public void setRoles(Set<role> roles) {
         this.roles = roles;
+    }
+
+    public byte[] getAvatarbytes() {
+        return avatarbytes;
+    }
+
+    public void setAvatarbytes(byte[] avatarbytes) {
+        this.avatarbytes = avatarbytes;
+    }
+
+    public String getAvatarlink() {
+        return avatarlink;
+    }
+
+    public void setAvatarlink(String avatarlink) {
+        this.avatarlink = avatarlink;
     }
 }

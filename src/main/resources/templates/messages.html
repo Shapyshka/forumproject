@@ -14,13 +14,16 @@
     <h1 align="center">Переписки</h1>
     <br>
     <div align="center" th:each="el:${talkto}" style="width:60%">
-        <div class="rounded" align="center" style="background-color:#aaaaaa">
-            <br>
-            <a style="color:#222222"  th:href="'/msg/'+${el.getValue()}" >
-                <h3 th:text="${el.getValue()}"/>
-            </a>
-            <br>
-        </div>
+        <a style="color:#222222; text-decoration: none; data-align:middle"  th:href="'/msg/'+${el.getValue()}" >
+            <div class="rounded" align="center" style="background-color:#aaaaaa">
+                <br>
+                    <img class="rounded-circle" th:src="${userrep.findByUsername(el.getValue()).getAvatarlink()}" style="display:inline-block;" height="30px" width="30px" >
+                    <h3 th:text="${el.getValue()}" style="display:inline-block;"/>
+                    <br>
+                <br>
+            </div>
+        </a>
+
         <br>
     </div>
 </div>

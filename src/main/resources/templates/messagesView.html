@@ -24,9 +24,11 @@
   <br>
   <div align="center" th:each="el:${msgs}" style="width:60%">
     <div class="rounded" align="center" style="background-color:#aaaaaa">
-      <a style="color:#222222"  th:href="'/usr/'+${el.getFromName()}" >
-        <h4 th:text="${el.getFromName()}"/>
+      <a style="color:#222222; text-decoration: none;"  th:href="'/usr/'+${el.getFromName()}" >
+        <img class="rounded-circle" th:src="${userrep.findByUsername(el.getFromName()).getAvatarlink()}" style="display:inline-block;" height="25px" width="25px" >
+        <h4 th:text="${el.getFromName()}" style="display:inline-block;"/>
       </a>
+
       <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
       <h2 th:text="${el.getText()}"/>
     </div>

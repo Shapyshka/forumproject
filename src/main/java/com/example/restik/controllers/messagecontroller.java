@@ -69,6 +69,8 @@ public class messagecontroller {
         }
 
         model.addAttribute("talkto",map);
+        model.addAttribute("userrep",userrepository);
+
         return "messages";
     }
     @GetMapping(path = "/{id}")
@@ -97,6 +99,8 @@ public class messagecontroller {
 
         allmsgs.sort(Collections.reverseOrder());
         model.addAttribute("msgs",allmsgs);
+        model.addAttribute("userrep",userrepository);
+
         return "messagesView";
     }
     @PostMapping("/{id}/sndmsg")

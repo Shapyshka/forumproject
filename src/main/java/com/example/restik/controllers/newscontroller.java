@@ -37,6 +37,7 @@ public class newscontroller {
     @Autowired
     private commentrepository commentrepository;
 
+    //TODO с помощью javascript пофиксить таймзоны
     @GetMapping(path="/")
 //    @RequestMapping
     public String homenews(TimeZone timezone, Model model) throws ParseException {
@@ -50,7 +51,7 @@ public class newscontroller {
 
         Iterable<news> listnews = newsrepository.findAllByOrderByDateDesc();
         model.addAttribute("news",listnews);
-//        model.addAttribute("userid",username);
+        model.addAttribute("userrep",userrepository);
 
         return "newsList";
     }
@@ -100,6 +101,8 @@ public class newscontroller {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
+
+        model.addAttribute("userrep",userrepository);
         model.addAttribute("curusname",currentPrincipalName);
 
         return "newsView";
