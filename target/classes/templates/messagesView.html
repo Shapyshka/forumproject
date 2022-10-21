@@ -19,7 +19,8 @@
 
 <body id="scrolldiv" style="margin-top:126px">
 <div align="center">
-  <div align="center" class="rounded" style="background-color:#cccccc; width:90%; margin-bottom: 105px;">
+  <h5 th:if="${msgs.size==0}">Сообщений нет. Напишите первым!</h5>
+  <div th:if="${msgs.size>0}" align="center" class="rounded" style="background-color:#cccccc; width:90%; margin-bottom: 105px;">
     <br>
     <div align="center" th:each="el:${msgs}" style="width:60%">
       <div class="rounded" align="center" style="background-color:#aaaaaa">
@@ -38,12 +39,17 @@
     var objDiv = document.getElementById("scrolldiv");
     objDiv.scrollTop = objDiv.scrollHeight;
   </script>
-  <div style="position: fixed; bottom: 0; width: 100%; background-color:#bbbbbb;">
-    Написать сообщение:
-    <form method="post" th:action="'/msg/'+${id}+'/sndmsg'" th:object="${message}" style="margin-bottom: 10px;">
-      <textarea style="width:40%; align:center" name="text" id ="text" placeholder="Сообщение" class="form-control"></textarea>
-      <!--        <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>-->
-      <button style="color:#ffffff" class="btn btn-success" type="submit">Написать сообщение</button>
+  <div style="position: fixed; bottom: 0; width: 100%; background-color:#bbbbbb; ">
+    <form method="post" th:action="'/msg/'+${id}+'/sndmsg'" th:object="${message}" style="margin-bottom: 20px;margin-top: 20px;">
+      <div class="input-group" style="width:33%;">
+<!--        <textarea style="align:center" name="text" id ="text" placeholder="Сообщение" class="form-control"></textarea>-->
+        <input type="text" name="text" id ="text" placeholder="Сообщение" class="form-control" >
+          <button style="color:#ffffff" class="btn btn-success" type="submit">
+            <span class="material-icons-outlined" style="font-size:15px">
+              send
+            </span>
+          </button>
+      </div>
     </form>
   </div>
   <br>

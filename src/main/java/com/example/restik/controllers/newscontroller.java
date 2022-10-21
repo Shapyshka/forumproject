@@ -55,11 +55,11 @@ public class newscontroller {
 
         return "newsList";
     }
-    @GetMapping("/crt_nws")
-    public String addnews(news news){
-
-        return "newsAdd";
-    }
+//    @GetMapping("/crt_nws")
+//    public String addnews(news news){
+//
+//        return "newsAdd";
+//    }
     @PostMapping("/crt_nws")
     public String savenews(@Valid news news, BindingResult bindingResult) throws ParseException {
 

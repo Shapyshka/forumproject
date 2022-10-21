@@ -1,12 +1,37 @@
+<div th:fragment="Header" xmlns:th="http://www.w3.org/1999/xhtml" style="position: fixed; top: 0; width: 100%;">
 
-<div th:fragment="Header" xmlns:th="http://www.w3.org/1999/xhtml">
-    <header class="d-flex justify-content-center py-3" >
-        <ul class="nav nav-pills">
-            <li  type="button" class="btn btn-success"><a style="color:#ffffff" href="/nws/" class="nav-link">Лента</a></li>
-            <li  type="button" class="btn btn-success"><a style="color:#ffffff" href="/msg/" class="nav-link">Сообщения</a></li>
-            <li  type="button" class="btn btn-success"><a style="color:#ffffff" href="/prf/" class="nav-link">Профиль</a></li>
-        </ul>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Third navbar example">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/nws/" style="margin-left:30px">Соцсеть</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    </header>
-
+            <div class="collapse navbar-collapse justify-content-center" id="navbarsExample03" style="margin-right:90px">
+                <ul class="navbar-nav justify-content-center">
+                    <li class="nav-item">
+<!--                        <a class="nav-link active" aria-current="page" href="/nws/">Новости</a>-->
+                        <a class="nav-link" href="/nws/">Новости</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/msg/">Сообщения</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/prf/">Профиль</a>
+                    </li>
+<!--                    <li class="nav-item dropdown">-->
+<!--                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>-->
+<!--                        <ul class="dropdown-menu">-->
+<!--                            <li><a class="dropdown-item" href="/nws/">Новости</a></li>-->
+<!--                            <li><a class="dropdown-item" href="/msg/">Сообщения</a></li>-->
+<!--                            <li><a class="dropdown-item" href="/prf/">Профиль</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </nav>
 </div>
