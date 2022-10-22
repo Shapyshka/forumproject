@@ -33,7 +33,18 @@
             <img class="rounded-circle" th:src="${userrep.findByUsername(el.getAuthorName()).getAvatarlink()}" style="display:inline-block;" height="25px" width="25px" >
             <h4 th:text="${el.getAuthorName()}" style="display:inline-block;"/>
         </a>
-        <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>
+
+        <h5 th:id="${el.getId()}"></h5>
+        <script th:inline="javascript">
+                        var dnum = [[${(df1.parse(el.getDate().toString())).getTime()}]];
+                        var offset = new Date().getTimezoneOffset();
+                        var d = new Date();
+                        d.setTime(dnum);
+                        var s = d.toLocaleDateString('ru-ru', { year:"numeric", month:"long", day:"numeric",hour:"numeric",minute:"numeric"});
+                        document.getElementById("[[${el.getId()}]]").textContent= s;
+        </script>
+
+<!--        <h5 th:text="${df2.format(df1.parse(el.getDate().toString()))}"/>-->
         <h2 th:text="${el.getText()}"/>
 
         <div th:if="${el.getAuthorName()==curusname}">

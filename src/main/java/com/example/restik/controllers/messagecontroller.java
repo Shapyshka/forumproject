@@ -18,8 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -104,7 +109,7 @@ public class messagecontroller {
         return "messagesView";
     }
     @PostMapping("/{id}/sndmsg")
-    public String sendmsg(@Valid message message, BindingResult bindingResult, @PathVariable("id") String id) throws ParseException {
+    public ModelAndView sendmsg(@Valid message message, BindingResult bindingResult, @PathVariable("id") String id) throws ParseException, UnsupportedEncodingException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
@@ -119,6 +124,8 @@ public class messagecontroller {
         message.setDate(now);
 
         messagerepository.save(message);
-        return "redirect:/msg/"+id;
+
+        String encodedId = URLEncoder.encode(id, "UTF-8");
+        return new ModelAndView(new RedirectView("/msg/" + encodedId, true, true, false));
     }
 }

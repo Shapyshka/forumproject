@@ -37,20 +37,19 @@ public class newscontroller {
     @Autowired
     private commentrepository commentrepository;
 
-    //TODO с помощью javascript пофиксить таймзоны
     @GetMapping(path="/")
 //    @RequestMapping
-    public String homenews(TimeZone timezone, Model model) throws ParseException {
+    public String homenews(Model model) throws ParseException {
 
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm",new Locale("ru", "RU"));
         df1.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Greenwich")));
         model.addAttribute("df1",df1);
         SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy HH:mm",new Locale("ru", "RU"));
-        df2.setTimeZone(timezone);
         model.addAttribute("df2",df2);
 
         Iterable<news> listnews = newsrepository.findAllByOrderByDateDesc();
         model.addAttribute("news",listnews);
+
         model.addAttribute("userrep",userrepository);
 
         return "newsList";
