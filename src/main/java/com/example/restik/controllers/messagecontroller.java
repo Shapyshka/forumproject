@@ -59,25 +59,33 @@ public class messagecontroller {
 
         Iterable<message> listmsg = messagerepository.findByFrom_idOrTo_idOrderByDateDesc(curuserid,curuserid);
         //ArrayList<Long> list = new ArrayList<>();
-        HashMap<Long,String> map = new HashMap<>();
+        Map<String,Long> map = new TreeMap<String,Long>();
 
         for(message m:listmsg){
             if(Objects.equals(m.getFrom().getId(), curuserid)){
-                if(!map.containsKey(m.getTo().getId()))
-                    map.put(m.getTo().getId(),userrepository.findById(m.getTo().getId()).get().getUsername());
+                if(!map.containsKey(m.getTo().getUsername()))
+                    map.put(m.getTo().getUsername(),m.getId());
             }
 
             else if(Objects.equals(m.getTo().getId(), curuserid)){
-                if(!map.containsKey(m.getFrom().getId()))
-                    map.put(m.getFrom().getId(),userrepository.findById(m.getFrom().getId()).get().getUsername());
+                if(!map.containsKey(m.getFrom().getUsername()))
+                    map.put(m.getFrom().getUsername(),m.getId());
             }
         }
 
-        model.addAttribute("talkto",map);
-        model.addAttribute("userrep",userrepository);
+        Map<Long,String> map2 = new TreeMap<Long, String>(Collections.reverseOrder());
+        for(Map.Entry<String, Long> entry : map.entrySet()){
+            map2.put(entry.getValue(), entry.getKey());
+        }
+
+        model.addAttribute("talkto", map2);
+        model.addAttribute("userrep", userrepository);
+        model.addAttribute("mesrep", messagerepository);
 
         return "messages";
     }
+
+
     @GetMapping(path = "/{id}")
     //@RequestMapping
     public String msgwithuser(@PathVariable("id") String msgwith, TimeZone timezone, Model model) {

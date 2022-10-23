@@ -16,11 +16,12 @@
 <h1 align="center">Регистрация</h1>
 
 <form align="center" th:action="@{/registration}" method="post" >
-  <div><label> Имя пользователя: <input type="text" name="username" class="form-control"/> </label></div>
+  <div><label> Имя пользователя: <input type="text" th:value="${usern}" name="username" class="form-control"/> </label></div>
 <!--  <div style="color:red" th:if = "${#fields.hasErrors('text')}" th:errors="*{text}"></div>-->
 
-  <div><label> Пароль: <input type="password" name="password" class="form-control"/> </label></div>
+  <div><label> Пароль: <input type="password" th:value="${userp}" name="password" class="form-control"/> </label></div>
 <!--  <div style="color:red" th:if = "${#fields.hasErrors('password')}" th:errors="*{text}"></div>-->
+  <div><label> Повторите пароль: <input type="password" name="password2" class="form-control"/> </label></div>
 
   <div><input class="btn btn-success" type="submit" value="Зарегистрироваться" /></div>
   <a href="/login">Войти в аккаунт</a>

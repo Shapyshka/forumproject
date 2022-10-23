@@ -17,18 +17,42 @@
 <div align="center">
     <h1 align="center">Переписки</h1>
     <br>
-    <div align="center" th:each="el:${talkto}" style="width:60%">
-        <a style="color:#222222; text-decoration: none; data-align:middle"  th:href="'/msg/'+${el.getValue()}" >
-            <div class="rounded" align="center" style="background-color:#aaaaaa">
-                <br>
-                    <img class="rounded-circle" th:src="${userrep.findByUsername(el.getValue()).getAvatarlink()}" style="display:inline-block;" height="30px" width="30px" >
-                    <h3 th:text="${el.getValue()}" style="display:inline-block;"/>
+    <h5 th:if="${talkto.isEmpty()}">Похоже, у вас нет ни с кем переписок. Начните, перейдя в профиль другого пользователя и кликнув на кнопку "Написать сообщение"</h5>
+    <div th:if="${!talkto.isEmpty()}">
+        <div align="center" th:each="el:${talkto}" style="width:60%">
+            <a style="color:#222222; text-decoration: none; data-align:middle"  th:href="'/msg/'+${el.getValue()}" >
+                <div class="rounded" align="center" style="background-color:#aaaaaa">
                     <br>
-                <br>
-            </div>
-        </a>
-
-        <br>
+                    <div>
+                        <img class="rounded-circle" th:src="${userrep.findByUsername(el.getValue()).getAvatarlink()}" style="display:inline-block;" height="35px" width="35px" >
+                        <h3 th:text="${el.getValue()}" style="display:inline-block;"/>
+                    </div>
+                    <br>
+                    Последнее сообщение:
+                    <div >
+                        <div class="rounded" style="background-color:#999999; width:50%">
+                            <img class="rounded-circle" th:src="${userrep.findByUsername(mesrep.findById(el.getKey()).get().getFromName()).getAvatarlink()}" style="display:inline-block;" height="15px" width="15px" >
+                            <h6 th:text="${mesrep.findById(el.getKey()).get().getFromName()}" style="display:inline-block;"/>
+                        </div>
+                        <div class="rounded" style="background-color:#888888; width:60%">
+                            <h4 th:text="${mesrep.findById(el.getKey()).get().getText()}" style="display:inline-block;"/>
+                        </div>
+                        <div class="rounded" style="background-color:#999999; width:40%">
+                            <h6 th:id="${el.getKey()}" style="display:inline-block;"/>
+                        </div>
+                        <script th:inline="javascript">
+                            var dnum = [[${(df1.parse(mesrep.findById(el.getKey()).get().getDate().toString())).getTime()}]];
+                            var offset = new Date().getTimezoneOffset();
+                            var d = new Date();
+                            d.setTime(dnum);
+                            var s = d.toLocaleDateString('ru-ru', { year:"numeric", month:"long", day:"numeric",hour:"numeric",minute:"numeric"});
+                            document.getElementById("[[${el.getKey()}]]").textContent= s;
+                        </script>
+                    </div>
+                </div>
+            </a>
+            <br>
+        </div>
     </div>
 </div>
 <footer th:insert="blocks/footer :: Footer"></footer>
