@@ -15,7 +15,7 @@
 <header th:insert="blocks/header :: Header" ></header>
 <div style="align:center" align="center">
   <div style="background-color:#bbbbbb; width:100%; position: fixed; top: 56px; align:center" align="center" class="rounded">
-    <a style="color:#222222; text-decoration: none;"  th:href="'/usr/'+${usrnm}" >
+    <a style="color:#222222; text-decoration: none;"  th:href="'/usrs/'+${usrnm}" >
       <img class="rounded-circle" th:src="${userrep.findByUsername(usrnm).getAvatarlink()}" style="display:inline-block;" height="40px" width="40px" >
       <h2 th:text="${usrnm}" style="display:inline-block;"/>
     </a>
@@ -29,7 +29,7 @@
     <br>
     <div align="center" th:each="el:${msgs}" style="width:60%">
       <div class="rounded" align="center" style="background-color:#aaaaaa">
-        <a style="color:#222222; text-decoration: none;"  th:href="'/usr/'+${el.getFromName()}" >
+        <a style="color:#222222; text-decoration: none;"  th:href="'/usrs/'+${el.getFromName()}" >
           <img class="rounded-circle" th:src="${userrep.findByUsername(el.getFromName()).getAvatarlink()}" style="display:inline-block;" height="25px" width="25px" >
           <h4 th:text="${el.getFromName()}" style="display:inline-block;"/>
         </a>

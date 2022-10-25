@@ -14,3 +14,4 @@ com\example\restik\models\message.class
 com\example\restik\repository\messagerepository.class
 com\example\restik\config\websecurityconfig.class
 com\example\restik\controllers\messagecontroller.class
+com\example\restik\controllers\userscontroller.class

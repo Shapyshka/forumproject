@@ -29,7 +29,7 @@
 <!--<h1 align="center">Подробно</h1>-->
 <div align="center">
     <div th:each="el:${news}" class="rounded" style="width:60%; background-color:#aaaaaa" >
-        <a style="color:#222222; text-decoration: none;"  th:href="'/usr/'+${el.getAuthorName()}" >
+        <a style="color:#222222; text-decoration: none;"  th:href="'/usrs/'+${el.getAuthorName()}" >
             <img class="rounded-circle" th:src="${userrep.findByUsername(el.getAuthorName()).getAvatarlink()}" style="display:inline-block;" height="25px" width="25px" >
             <h4 th:text="${el.getAuthorName()}" style="display:inline-block;"/>
         </a>
@@ -104,7 +104,7 @@
     </h5>
     <div align="center" th:each="el:${comments}">
         <div class="rounded" align="center" style="background-color:#aaaaaa; width:60%">
-            <a style="color:#222222; text-decoration: none;"  th:href="'/usr/'+${el.getAuthorName()}" >
+            <a style="color:#222222; text-decoration: none;"  th:href="'/usrs/'+${el.getAuthorName()}" >
                 <img class="rounded-circle" th:src="${userrep.findByUsername(el.getAuthorName()).getAvatarlink()}" style="display:inline-block;" height="25px" width="25px" >
                 <h4 th:text="${el.getAuthorName()}" style="display:inline-block;"/>
             </a>
