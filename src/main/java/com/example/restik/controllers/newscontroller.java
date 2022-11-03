@@ -131,6 +131,7 @@ public class newscontroller {
         onenews.ifPresent(res::add);
         model.addAttribute("onenew",res);
         news.setAuthor(userrepository.findByUsername(currentPrincipalName));
+        news.setDate(newsrepository.findById(news.getId()).get().getDate());
         if(bindingResult.hasErrors()) {
             return "newsEdit";
         }
