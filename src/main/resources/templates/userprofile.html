@@ -57,6 +57,9 @@
             <br>
             <br>
             <h2 align="center">Записи</h2>
+            <h5 th:if="${news.size==0}">
+                Данный пользователь еще ничего не запостил
+            </h5>
                 <div align="center" th:each="el:${news}">
                     <div class="rounded" align="center" style="background-color:#aaaaaa">
                         <a style="color:#222222; text-decoration: none;"  th:href="'/usrs/'+${el.getAuthorName()}" >

@@ -40,6 +40,8 @@ public class newscontroller {
     @GetMapping(path="/")
 //    @RequestMapping
     public String homenews(Model model) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm",new Locale("ru", "RU"));
         df1.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Greenwich")));
@@ -51,6 +53,7 @@ public class newscontroller {
         model.addAttribute("news",listnews);
 
         model.addAttribute("userrep",userrepository);
+        model.addAttribute("curusname",currentPrincipalName);
 
         return "newsList";
     }
