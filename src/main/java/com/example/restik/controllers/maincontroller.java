@@ -68,6 +68,10 @@ public class maincontroller {
         userrepository.save(user);
         return "redirect:/prf/";
     }
+    @GetMapping("/yandex_5795c5555457349c.html")
+    public String yandex(Model model) {
+        return "yandex_5795c5555457349c";
+    }
 
 
 }
