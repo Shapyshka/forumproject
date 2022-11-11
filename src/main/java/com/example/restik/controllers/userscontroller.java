@@ -3,6 +3,8 @@ package com.example.restik.controllers;
 import com.example.restik.models.message;
 import com.example.restik.models.news;
 import com.example.restik.models.user;
+import com.example.restik.repository.commentrepository;
+import com.example.restik.repository.likesrepository;
 import com.example.restik.repository.newsrepository;
 import com.example.restik.repository.userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,11 @@ public class userscontroller {
     private userrepository userrepository;
     @Autowired
     private newsrepository newsrepository;
+
+    @Autowired
+    private likesrepository likesrepository;
+    @Autowired
+    private commentrepository commentrepository;
 
     @GetMapping(path = "/")
     public String homeusers(Model model) throws ParseException {
@@ -61,7 +68,13 @@ public class userscontroller {
         Long userid = userrepository.findByUsername(usern).getId();
         Iterable<news> listnews = newsrepository.findByAuthor_idOrderByDateDesc(userid);
         model.addAttribute("news",listnews);
+
         model.addAttribute("userrep",userrepository);
+        model.addAttribute("newsrep",newsrepository);
+        model.addAttribute("commrep",commentrepository);
+        model.addAttribute("likerep",likesrepository);
+
+        model.addAttribute("curusname",currentPrincipalName);
 
         return "userprofile";
     }

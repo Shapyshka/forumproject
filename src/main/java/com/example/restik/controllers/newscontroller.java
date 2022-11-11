@@ -1,11 +1,14 @@
 package com.example.restik.controllers;
 
 import com.example.restik.models.comment;
+import com.example.restik.models.likes;
 import com.example.restik.models.news;
 import com.example.restik.repository.commentrepository;
+import com.example.restik.repository.likesrepository;
 import com.example.restik.repository.newsrepository;
 import com.example.restik.repository.userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -36,6 +39,8 @@ public class newscontroller {
     private userrepository userrepository;
     @Autowired
     private commentrepository commentrepository;
+    @Autowired
+    private likesrepository likesrepository;
 
     @GetMapping(path="/")
 //    @RequestMapping
@@ -53,8 +58,12 @@ public class newscontroller {
         model.addAttribute("news",listnews);
 
         model.addAttribute("userrep",userrepository);
-        model.addAttribute("curusname",currentPrincipalName);
+        model.addAttribute("newsrep",newsrepository);
+        model.addAttribute("commrep",commentrepository);
+        model.addAttribute("likerep",likesrepository);
 
+
+        model.addAttribute("curusname",currentPrincipalName);
         return "newsList";
     }
 //    @GetMapping("/crt_nws")
@@ -105,6 +114,10 @@ public class newscontroller {
         String currentPrincipalName = authentication.getName();
 
         model.addAttribute("userrep",userrepository);
+        model.addAttribute("newsrep",newsrepository);
+        model.addAttribute("commrep",commentrepository);
+        model.addAttribute("likerep",likesrepository);
+
         model.addAttribute("curusname",currentPrincipalName);
 
         return "newsView";
@@ -157,11 +170,62 @@ public class newscontroller {
         return "redirect:/nws/"+id;
     }
 
+
+    @PostMapping("/{id}/like")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void like(Model model, likes likes, BindingResult bindingResult, @PathVariable("id") Long id) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        if(likesrepository.findLikes(newsrepository.findById(id),userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId())).size()!=0) {
+            likes like = likesrepository.findLikes(newsrepository.findById(id),userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId())).get(0);
+            likesrepository.delete(like);
+        }
+        else{
+            if(likesrepository.findDises(newsrepository.findById(id),userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId())).size()!=0){
+                likes like = likesrepository.findDises(newsrepository.findById(id),userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId())).get(0);
+                likesrepository.delete(like);
+            }
+            likes.setUserliked(userrepository.findByUsername(currentPrincipalName));
+            likes.setZapis(newsrepository.findById(id).orElseThrow());
+            likes.setLikeornot(true);
+            likesrepository.save(likes);
+        }
+        //return "redirect:/nws/";
+    }
+
+    @PostMapping("/{id}/dislike")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void dislike(Model model, likes likes, BindingResult bindingResult, @PathVariable("id") Long id) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        if(likesrepository.findDises(newsrepository.findById(id),userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId())).size()!=0) {
+            likes like = likesrepository.findDises(newsrepository.findById(id),userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId())).get(0);
+            likesrepository.delete(like);
+        }
+        else{
+            if(likesrepository.findLikes(newsrepository.findById(id),userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId())).size()!=0){
+                likes like = likesrepository.findLikes(newsrepository.findById(id),userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId())).get(0);
+                likesrepository.delete(like);
+            }
+            likes.setUserliked(userrepository.findByUsername(currentPrincipalName));
+            likes.setZapis(newsrepository.findById(id).orElseThrow());
+            likes.setLikeornot(false);
+            likesrepository.save(likes);
+        }
+
+        //return "redirect:/nws/";
+    }
+
     @PostMapping("/{id}/del")
     public String delnews(@PathVariable("id") Long id, Model model){
         Iterable<comment> comments= commentrepository.findByZapis_idOrderByDateDesc(id);
         for(comment com:comments)
             commentrepository.delete(com);
+
+        List<likes> likes= likesrepository.findByZapis_id(id);
+        for(likes like:likes)
+            likesrepository.delete(like);
 
         news news= newsrepository.findById(id).orElseThrow();
         newsrepository.delete(news);

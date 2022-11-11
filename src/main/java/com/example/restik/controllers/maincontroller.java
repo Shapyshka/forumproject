@@ -3,6 +3,8 @@ package com.example.restik.controllers;
 import com.example.restik.models.message;
 import com.example.restik.models.news;
 import com.example.restik.models.user;
+import com.example.restik.repository.commentrepository;
+import com.example.restik.repository.likesrepository;
 import com.example.restik.repository.newsrepository;
 import com.example.restik.repository.userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +29,13 @@ import java.util.TimeZone;
 public class maincontroller {
 
     @Autowired
-    private com.example.restik.repository.newsrepository newsrepository;
+    private newsrepository newsrepository;
     @Autowired
-    private com.example.restik.repository.userrepository userrepository;
+    private userrepository userrepository;
+    @Autowired
+    private likesrepository likesrepository;
+    @Autowired
+    private commentrepository commentrepository;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -54,7 +60,13 @@ public class maincontroller {
         Long userid = userrepository.findByUsername(currentPrincipalName).getId();
         Iterable<news> listnews = newsrepository.findByAuthor_idOrderByDateDesc(userid);
         model.addAttribute("news",listnews);
+
         model.addAttribute("userrep",userrepository);
+        model.addAttribute("newsrep",newsrepository);
+        model.addAttribute("commrep",commentrepository);
+        model.addAttribute("likerep",likesrepository);
+
+        model.addAttribute("curusname",currentPrincipalName);
 
         return "myprofile";
     }

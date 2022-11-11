@@ -4,10 +4,12 @@ C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\models\r
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\models\user.java
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\repository\commentrepository.java
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\repository\newsrepository.java
+C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\models\likes.java
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\controllers\maincontroller.java
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\controllers\messagecontroller.java
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\repository\messagerepository.java
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\config\websecurityconfig.java
+C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\repository\likesrepository.java
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\controllers\userscontroller.java
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\models\message.java
 C:\Users\kapla\IdeaProjects\NewProject\src\main\java\com\example\restik\config\mvcconfig.java

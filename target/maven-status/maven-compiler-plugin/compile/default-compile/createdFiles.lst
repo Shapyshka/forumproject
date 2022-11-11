@@ -1,6 +1,8 @@
 com\example\restik\models\news.class
 com\example\restik\RestikApplication.class
+com\example\restik\repository\likesrepository.class
 com\example\restik\controllers\registrationcontroller.class
+com\example\restik\models\likes.class
 com\example\restik\models\user.class
 com\example\restik\repository\userrepository.class
 com\example\restik\controllers\maincontroller.class
