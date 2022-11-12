@@ -237,17 +237,17 @@
                         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 
                         <form th:action="'/nws/'+${el.getId()}+'/like'" method="post" style="display: inline-block; vertical-align: text-top; margin-bottom:10px;" target="dummyframe">
-                            <button th:attr="onclick=|@{pressunlike{id}()(id=${el.getId()})}|" th:id="${'unlike'+el.getId()}" type="submit" class="btn btn-success" style="vertical-align: text-top;">
+                            <button th:attr="onclick=|@{pressunlike({quan},{curid})(quan=${likerep.findLikeorDis(false, newsrep.findById(el.getId())).size()}, curid=${el.getId()})}|" th:id="${'unlike'+el.getId()}" type="submit" class="btn btn-success" style="vertical-align: text-top;">
                                 <span th:id="${'unlikenum'+el.getId()}" th:text="${likerep.findLikeorDis(true, newsrep.findById(el.getId())).size()}" style="font-size:14px"></span>
                                 <span class="material-icons-outlined" style="font-size:14px">
-                                        thumb_up
-                                   </span>
+                                 thumb_up
+                            </span>
                             </button>
-                            <button th:attr="onclick=|@{presslike{id}()(id=${el.getId()})}|" th:id="${'like'+el.getId()}" type="submit" class="btn btn-outline-success" style="vertical-align: text-top;">
+                            <button th:attr="onclick=|@{presslike({quan},{curid})(quan=${likerep.findLikeorDis(false, newsrep.findById(el.getId())).size()}, curid=${el.getId()})}|" th:id="${'like'+el.getId()}" type="submit" class="btn btn-outline-success" style="vertical-align: text-top;">
                                 <span th:id="${'likenum'+el.getId()}" th:text="${likerep.findLikeorDis(true, newsrep.findById(el.getId())).size()}" style="font-size:14px"></span>
                                 <span class="material-icons-outlined" style="font-size:14px">
-                                        thumb_up
-                                   </span>
+                                 thumb_up
+                            </span>
                             </button>
                         </form>
                         <a type="button" class="btn btn-outline-dark" th:href="@{/nws/{id}(id=${el.getId})}" style="display: inline-block; vertical-align: text-top; margin-bottom:10px;">
@@ -257,150 +257,153 @@
                             </span>
                         </a>
                         <form th:action="'/nws/'+${el.getId()}+'/dislike'" method="post" style="display: inline-block; vertical-align: text-top; margin-bottom:10px;" target="dummyframe">
-                            <button th:attr="onclick=|@{pressundislike{id}()(id=${el.getId()})}|" th:id="${'undislike'+el.getId()}" type="submit" class="btn btn-danger">
+                            <button th:attr="onclick=|@{pressundislike({quan},{curid})(quan=${likerep.findLikeorDis(true, newsrep.findById(el.getId())).size()}, curid=${el.getId()})}|" th:id="${'undislike'+el.getId()}" type="submit" class="btn btn-danger">
                                 <span th:id="${'undislikenum'+el.getId()}" th:text="${likerep.findLikeorDis(false, newsrep.findById(el.getId())).size()}" style="font-size:14px"></span>
                                 <span class="material-icons-outlined" style="font-size:14px">
-                                        thumb_down
-                                   </span>
+                                 thumb_down
+                            </span>
                             </button>
-                            <button th:attr="onclick=|@{pressdislike{id}()(id=${el.getId()})}|" th:id="${'dislike'+el.getId()}" type="submit" class="btn btn-outline-danger">
+                            <button th:attr="onclick=|@{pressdislike({quan},{curid})(quan=${likerep.findLikeorDis(true, newsrep.findById(el.getId())).size()}, curid=${el.getId()})}|" th:id="${'dislike'+el.getId()}" type="submit" class="btn btn-outline-danger">
                                 <span th:id="${'dislikenum'+el.getId()}" th:text="${likerep.findLikeorDis(false, newsrep.findById(el.getId())).size()}" style="font-size:14px"></span>
                                 <span class="material-icons-outlined" style="font-size:14px">
-                                        thumb_down
-                                   </span>
+                                 thumb_down
+                            </span>
                             </button>
                         </form>
                         <script th:inline="javascript">
-                            var unlikebutton = document.getElementById("unlike"+"[[${el.getId()}]]");
-                            var likebutton = document.getElementById("like"+"[[${el.getId()}]]");
-                            var undislikebutton = document.getElementById("undislike"+"[[${el.getId()}]]");
-                            var dislikebutton = document.getElementById("dislike"+"[[${el.getId()}]]");
+                     var unlikebutton = document.getElementById("unlike"+"[[${el.getId()}]]");
+                     var likebutton = document.getElementById("like"+"[[${el.getId()}]]");
+                     var undislikebutton = document.getElementById("undislike"+"[[${el.getId()}]]");
+                     var dislikebutton = document.getElementById("dislike"+"[[${el.getId()}]]");
 
-                            if([[${likerep.findLikes(newsrep.findById(el.getId()),userrep.findById(userrep.findByUsername(curusname).getId())).size()!=0}]])
-                                unlikebutton.style.display = "block";
-                            else
-                                unlikebutton.style.display = "none";
+                     if([[${likerep.findLikes(newsrep.findById(el.getId()),curuserid).size()==0}]])
+                     {
+                         likebutton.style.display = "block";
+                         unlikebutton.style.display = "none";
+                     }
+                     else
+                     {
+                         likebutton.style.display = "none";
+                         unlikebutton.style.display = "block";
+                     }
 
-                            if([[${likerep.findLikes(newsrep.findById(el.getId()),userrep.findById(userrep.findByUsername(curusname).getId())).size()==0}]])
-                                likebutton.style.display = "block";
-                            else
-                                likebutton.style.display = "none";
-
-                            if([[${likerep.findDises(newsrep.findById(el.getId()),userrep.findById(userrep.findByUsername(curusname).getId())).size()!=0}]])
-                                undislikebutton.style.display = "block";
-                            else
-                                undislikebutton.style.display = "none";
-                            if([[${likerep.findDises(newsrep.findById(el.getId()),userrep.findById(userrep.findByUsername(curusname).getId())).size()==0}]])
-                                dislikebutton.style.display = "block";
-                            else
-                                dislikebutton.style.display = "none";
-                        </script>
-                        <script th:inline="javascript">
-                            function pressunlike[[${el.getId()}]]() {
-                                  var unlikebutton = document.getElementById("unlike"+"[[${el.getId()}]]");
-                                  var likebutton = document.getElementById("like"+"[[${el.getId()}]]");
-
-                                  unlikebutton.style.display = "none";
-                                  likebutton.style.display = "block";
-
-
-                                  var unlikenum = document.getElementById("unlikenum"+"[[${el.getId()}]]");
-                                  var likenum = document.getElementById("likenum"+"[[${el.getId()}]]");
-
-                                  var likeint = parseInt(unlikenum.textContent)-1;
-                                  var dislikeint = [[${likerep.findLikeorDis(false, newsrep.findById(el.getId())).size()}]];
-
-                                  unlikenum.innerHTML = likeint;
-                                  likenum.innerHTML = likeint;
-                                  undislikenum.innerHTML = dislikeint;
-                                  dislikenum.innerHTML = dislikeint;
-                            }
-                            function presslike[[${el.getId()}]](curid) {
-                                  var unlikebutton = document.getElementById("unlike"+"[[${el.getId()}]]");
-                                  var likebutton = document.getElementById("like"+"[[${el.getId()}]]");
-                                  var undislikebutton = document.getElementById("undislike"+"[[${el.getId()}]]");
-                                  var dislikebutton = document.getElementById("dislike"+"[[${el.getId()}]]");
-
-                                  var unlikenum = document.getElementById("unlikenum"+"[[${el.getId()}]]");
-                                  var likenum = document.getElementById("likenum"+"[[${el.getId()}]]");
-                                  var undislikenum = document.getElementById("undislikenum"+"[[${el.getId()}]]");
-                                  var dislikenum = document.getElementById("dislikenum"+"[[${el.getId()}]]");
-
-
-                                  var dislikeint = [[${likerep.findLikeorDis(false, newsrep.findById(el.getId())).size()}]];
-                                  if(undislikebutton.style.display == "block")
-                                        dislikeint = parseInt(undislikenum.textContent)-1;
-
-                                  unlikebutton.style.display = "block";
-                                  likebutton.style.display = "none";
-                                  undislikebutton.style.display = "none";
-                                  dislikebutton.style.display = "block";
-
-
-                                  var likeint = parseInt(unlikenum.textContent)+1;
-
-                                  unlikenum.innerHTML = likeint;
-                                  likenum.innerHTML = likeint;
-                                  undislikenum.innerHTML = dislikeint;
-                                  dislikenum.innerHTML = dislikeint;
-                            }
-                            function pressundislike[[${el.getId()}]](curid) {
-                                  var unlikebutton = document.getElementById("unlike"+"[[${el.getId()}]]");
-                                  var likebutton = document.getElementById("like"+"[[${el.getId()}]]");
-                                  var undislikebutton = document.getElementById("undislike"+"[[${el.getId()}]]");
-                                  var dislikebutton = document.getElementById("dislike"+"[[${el.getId()}]]");
-
-                                  undislikebutton.style.display = "none";
-                                  dislikebutton.style.display = "block";
-
-
-                                  var unlikenum = document.getElementById("unlikenum"+"[[${el.getId()}]]");
-                                  var likenum = document.getElementById("likenum"+"[[${el.getId()}]]");
-                                  var undislikenum = document.getElementById("undislikenum"+"[[${el.getId()}]]");
-                                  var dislikenum = document.getElementById("dislikenum"+"[[${el.getId()}]]");
-
-                                  var likeint = [[${likerep.findLikeorDis(true, newsrep.findById(el.getId())).size()}]];
-                                  var dislikeint = parseInt(undislikenum.textContent)-1;
-
-                                  unlikenum.innerHTML = likeint;
-                                  likenum.innerHTML = likeint;
-                                  undislikenum.innerHTML = dislikeint;
-                                  dislikenum.innerHTML = dislikeint;
-                            }
-                            function pressdislike[[${el.getId()}]](curid) {
-                                  var unlikebutton = document.getElementById("unlike"+"[[${el.getId()}]]");
-                                  var likebutton = document.getElementById("like"+"[[${el.getId()}]]");
-                                  var undislikebutton = document.getElementById("undislike"+"[[${el.getId()}]]");
-                                  var dislikebutton = document.getElementById("dislike"+"[[${el.getId()}]]");
-
-                                  var unlikenum = document.getElementById("unlikenum"+"[[${el.getId()}]]");
-                                  var likenum = document.getElementById("likenum"+"[[${el.getId()}]]");
-                                  var undislikenum = document.getElementById("undislikenum"+"[[${el.getId()}]]");
-                                  var dislikenum = document.getElementById("dislikenum"+"[[${el.getId()}]]");
-                                  var likeint = [[${likerep.findLikeorDis(true, newsrep.findById(el.getId())).size()}]];
-
-                                  if(unlikebutton.style.display == "block")
-                                       likeint = parseInt(unlikenum.textContent)-1;
-
-                                  unlikebutton.style.display = "none";
-                                  likebutton.style.display = "block";
-                                  undislikebutton.style.display = "block";
-                                  dislikebutton.style.display = "none";
-
-                                  var dislikeint = parseInt(undislikenum.textContent)+1;
-
-                                  unlikenum.innerHTML = likeint;
-                                  likenum.innerHTML = likeint;
-                                  undislikenum.innerHTML = dislikeint;
-                                  dislikenum.innerHTML = dislikeint;
-                            }
-                        </script>
+                     if([[${likerep.findDises(newsrep.findById(el.getId()),curuserid).size()==0}]])
+                     {
+                         dislikebutton.style.display = "block";
+                         undislikebutton.style.display = "none";
+                     }
+                     else
+                     {
+                         dislikebutton.style.display = "none";
+                         undislikebutton.style.display = "block";
+                     }
+                 </script>
                     </div>
                     <div> </div>
                 </div>
                 <script th:inline="javascript">document.getElementById("cuntent"+"[[${el.getId()}]]").style.display = "block";</script>
                 <div style="height:10px"> </div>
             </div>
+    <script th:inline="javascript">
+        function pressunlike(quan,curid) {
+              var unlikebutton = document.getElementById("unlike"+curid);
+              var likebutton = document.getElementById("like"+curid);
+
+              unlikebutton.style.display = "none";
+              likebutton.style.display = "block";
+
+
+              var unlikenum = document.getElementById("unlikenum"+curid);
+              var likenum = document.getElementById("likenum"+curid);
+
+              var likeint = parseInt(unlikenum.textContent)-1;
+              var dislikeint = quan;
+
+              unlikenum.innerHTML = likeint;
+              likenum.innerHTML = likeint;
+              undislikenum.innerHTML = dislikeint;
+              dislikenum.innerHTML = dislikeint;
+        }
+        function presslike(quan,curid) {
+              var unlikebutton = document.getElementById("unlike"+curid);
+              var likebutton = document.getElementById("like"+curid);
+              var undislikebutton = document.getElementById("undislike"+curid);
+              var dislikebutton = document.getElementById("dislike"+curid);
+
+              var unlikenum = document.getElementById("unlikenum"+curid);
+              var likenum = document.getElementById("likenum"+curid);
+              var undislikenum = document.getElementById("undislikenum"+curid);
+              var dislikenum = document.getElementById("dislikenum"+curid);
+
+
+              var dislikeint = quan;
+              if(undislikebutton.style.display == "block")
+                    dislikeint = parseInt(undislikenum.textContent)-1;
+
+              unlikebutton.style.display = "block";
+              likebutton.style.display = "none";
+              undislikebutton.style.display = "none";
+              dislikebutton.style.display = "block";
+
+
+              var likeint = parseInt(unlikenum.textContent)+1;
+
+              unlikenum.innerHTML = likeint;
+              likenum.innerHTML = likeint;
+              undislikenum.innerHTML = dislikeint;
+              dislikenum.innerHTML = dislikeint;
+        }
+        function pressundislike(quan,curid) {
+              var unlikebutton = document.getElementById("unlike"+curid);
+              var likebutton = document.getElementById("like"+curid);
+              var undislikebutton = document.getElementById("undislike"+curid);
+              var dislikebutton = document.getElementById("dislike"+curid);
+
+              undislikebutton.style.display = "none";
+              dislikebutton.style.display = "block";
+
+
+              var unlikenum = document.getElementById("unlikenum"+curid);
+              var likenum = document.getElementById("likenum"+curid);
+              var undislikenum = document.getElementById("undislikenum"+curid);
+              var dislikenum = document.getElementById("dislikenum"+curid);
+
+              var likeint = quan;
+              var dislikeint = parseInt(undislikenum.textContent)-1;
+
+              unlikenum.innerHTML = likeint;
+              likenum.innerHTML = likeint;
+              undislikenum.innerHTML = dislikeint;
+              dislikenum.innerHTML = dislikeint;
+        }
+        function pressdislike(quan,curid) {
+              var unlikebutton = document.getElementById("unlike"+curid);
+              var likebutton = document.getElementById("like"+curid);
+              var undislikebutton = document.getElementById("undislike"+curid);
+              var dislikebutton = document.getElementById("dislike"+curid);
+
+              var unlikenum = document.getElementById("unlikenum"+curid);
+              var likenum = document.getElementById("likenum"+curid);
+              var undislikenum = document.getElementById("undislikenum"+curid);
+              var dislikenum = document.getElementById("dislikenum"+curid);
+
+              var likeint = quan;
+              if(unlikebutton.style.display == "block")
+                   likeint = parseInt(unlikenum.textContent)-1;
+
+              unlikebutton.style.display = "none";
+              likebutton.style.display = "block";
+              undislikebutton.style.display = "block";
+              dislikebutton.style.display = "none";
+
+              var dislikeint = parseInt(undislikenum.textContent)+1;
+
+              unlikenum.innerHTML = likeint;
+              likenum.innerHTML = likeint;
+              undislikenum.innerHTML = dislikeint;
+              dislikenum.innerHTML = dislikeint;
+        }
+    </script>
     <script>document.getElementById("loader").style.display = "none";</script>
 
 </div>

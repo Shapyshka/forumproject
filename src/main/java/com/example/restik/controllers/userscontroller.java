@@ -75,6 +75,7 @@ public class userscontroller {
         model.addAttribute("likerep",likesrepository);
 
         model.addAttribute("curusname",currentPrincipalName);
+        model.addAttribute("curuserid",userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId()));
 
         return "userprofile";
     }

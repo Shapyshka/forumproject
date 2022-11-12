@@ -62,15 +62,11 @@ public class newscontroller {
         model.addAttribute("commrep",commentrepository);
         model.addAttribute("likerep",likesrepository);
 
-
         model.addAttribute("curusname",currentPrincipalName);
+        model.addAttribute("curuserid",userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId()));
         return "newsList";
     }
-//    @GetMapping("/crt_nws")
-//    public String addnews(news news){
-//
-//        return "newsAdd";
-//    }
+
     @PostMapping("/crt_nws")
     public String savenews(@Valid news news, BindingResult bindingResult) throws ParseException {
 
@@ -119,6 +115,7 @@ public class newscontroller {
         model.addAttribute("likerep",likesrepository);
 
         model.addAttribute("curusname",currentPrincipalName);
+        model.addAttribute("curuserid",userrepository.findById(userrepository.findByUsername(currentPrincipalName).getId()));
 
         return "newsView";
     }
