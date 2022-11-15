@@ -31,10 +31,10 @@
 </script>
 <header th:insert="blocks/header :: Header" ></header>
 <div style="align:center" align="center">
-  <div style="background-color:#bbbbbb; width:100%; position: fixed; top: 56px; align:center" align="center" class="rounded">
+  <div style="background-color:#212529; width:100%; position: fixed; top: 56px; align:center" align="center" class="rounded">
     <a style="color:#222222; text-decoration: none;"  th:href="'/usrs/'+${usrnm}" >
       <img class="rounded-circle" th:src="${userrep.findByUsername(usrnm).getAvatarlink()}" style="display:inline-block;" height="40px" width="40px" >
-      <h2 th:text="${usrnm}" style="display:inline-block;"/>
+      <h2 th:text="${usrnm}" style="display:inline-block; color:#eeeeee"/>
     </a>
     <div style="height:10px"> </div>
   </div>

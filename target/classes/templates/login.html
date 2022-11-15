@@ -3,6 +3,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:text-color="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="icon" href="https://i.imgur.com/Kw2n6Eb.png">
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -30,17 +31,20 @@
 <body style="margin-top:70px">
 <header th:insert="blocks/header :: Header" ></header>
 <br>
-<h1 align="center">Вход</h1>
-
+<h1 align="center">Авторизация</h1>
+<br>
 <form align="center" th:action="@{/login}" method="post" >
-    <div><label> Имя пользователя: <input type="text" name="username" class="form-control"/> </label></div>
-    <div><label> Пароль: <input type="password" name="password" class="form-control"/> </label></div>
-    <div><input class="btn btn-success" type="submit" value="Авторизоваться" /></div>
-    <a href="/registration">Зарегистрироваться</a>
-    <div style="color:#ff0000" th:if="${param.error}">
+    <div><label style="font-size: 18px;"> Имя пользователя: <input style="font-size: 18px;" type="text" name="username" class="form-control"/> </label></div>
+    <br>
+    <div><label style="font-size: 18px;"> Пароль: <input style="font-size: 18px;" type="password" name="password" class="form-control"/> </label></div>
+    <br>
+    <div><input style="font-size: 18px;" class="btn btn-success" type="submit" value="Авторизоваться" /></div>
+    <a style="font-size: 18px;" href="/registration">Зарегистрироваться</a>
+    <br>
+    <div style="font-size: 18px; color:#ff0000" th:if="${param.error}" >
         Неверный логин и/или пароль.
     </div>
-    <div th:if="${param.logout}">
+    <div th:if="${param.logout}" style="font-size: 18px;">
         Вы разлогинились.
     </div>
 </form>
